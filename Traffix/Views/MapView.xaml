@@ -1,0 +1,182 @@
+﻿<UserControl  x:Class="Traffix.Views.MapView"  
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+	xmlns:behaviors="clr-namespace:Traffix.Behaviors" 
+	xmlns:converters="clr-namespace:Traffix.Converters"
+	xmlns:map="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps" 
+	xmlns:tkp="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" 
+    behaviors:ViewModelResolverBehavior.HasViewModel="True">
+	<UserControl.Resources>
+		<converters:LocationDataToCityStateZipConverter x:Key="LocationDataToCityStateZipConverter"/>
+		<Storyboard x:Name="HideDetails">
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Map">
+				<DiscreteObjectKeyFrame KeyTime="0">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Collapsed</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="Map">
+				<EasingDoubleKeyFrame KeyTime="0" Value="90">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<PowerEase EasingMode="EaseInOut" Power="10"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="90">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<PowerEase EasingMode="EaseInOut" Power="10"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<PowerEase EasingMode="EaseInOut" Power="10"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DetailsBorder">
+				<DiscreteObjectKeyFrame KeyTime="0">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.8">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Collapsed</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="DetailsBorder">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<PowerEase EasingMode="EaseInOut" Power="10"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-90">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<PowerEase EasingMode="EaseInOut" Power="10"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+		<Storyboard x:Name="ShowDetails">
+			<DoubleAnimation Duration="0:0:0.4" To="90" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="Map">
+				<DoubleAnimation.EasingFunction>
+					<PowerEase EasingMode="EaseInOut" Power="10"/>
+				</DoubleAnimation.EasingFunction>
+			</DoubleAnimation>
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Map">
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.8">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Collapsed</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DetailsBorder">
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="DetailsBorder">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-90">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<PowerEase EasingMode="EaseInOut" Power="10"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<PowerEase EasingMode="EaseInOut" Power="10"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</UserControl.Resources>
+
+	<Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.75*"/>
+			<RowDefinition Height="0.15*"/>
+			<RowDefinition Height="0.15*"/>
+		</Grid.RowDefinitions>
+		<Border x:Name="DetailsBorder" DataContext="{Binding SelectedEntity}" Margin="12" Visibility="Collapsed">
+			<Border.Projection>
+				<PlaneProjection RotationY="-90"/>
+			</Border.Projection>
+			<Grid>
+				<Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="Start Date:"/>
+                    <TextBlock FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="{Binding Timestamp}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <TextBlock FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="Approximate End Date:"/>
+                    <TextBlock FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="{Binding CalculatedEndTime}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+					<TextBlock FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="Latitude:"/>
+					<TextBlock FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="{Binding Location.Latitude}"/>
+				</StackPanel>
+				<StackPanel Grid.Row="3">
+					<TextBlock FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="Longitude:"/>
+					<TextBlock FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="{Binding Location.Longitude}"/>
+				</StackPanel>
+				<ScrollViewer Grid.Row="4" Margin="0,8,0,0">
+					<ItemsControl ItemsSource="{Binding Metadata}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<StackPanel>
+									<TextBlock FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" Text="{Binding Key}" TextWrapping="Wrap"/>
+									<TextBlock FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeSmall}" Foreground="{StaticResource PhoneForegroundBrush}" Text="{Binding Value}" TextWrapping="Wrap"/>
+								</StackPanel>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+				<Button Grid.Row="5" x:Name="CloseDetailsButton" Click="CloseDetailsButton_Click" Content="Close"/>
+			</Grid>
+		</Border>
+		<map:Map x:Name="Map" behaviors:MapBehaviors.MapTileSource="{Binding TileSource}" LogoVisibility="Collapsed" ZoomBarVisibility="Visible">
+			<map:Map.Projection>
+				<PlaneProjection/>
+			</map:Map.Projection>      	  
+			<map:MapItemsControl ItemsSource="{Binding Entities}" ItemTemplate="{StaticResource PushpinTemplate}" MouseLeftButtonUp="MapItemsControl_MouseLeftButtonUp"/>
+		</map:Map>
+		<StackPanel Grid.Row="1" Margin="12,4,12,0">
+			<TextBlock Text="Map Mode:" Foreground="{StaticResource PhoneAccentBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}"/>
+			<tkp:LoopingSelector DataSource="{Binding MapTileSources}" Height="45" HorizontalAlignment="Left" ItemSize="450,45" Width="450">
+				<tkp:LoopingSelector.ItemTemplate>
+					<DataTemplate>
+						<TextBlock FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}" Margin="0,-2,0,0" Text="{Binding}" VerticalAlignment="Center"/>
+					</DataTemplate>
+				</tkp:LoopingSelector.ItemTemplate>
+			</tkp:LoopingSelector>
+		</StackPanel>
+		<StackPanel Grid.Row="2" Margin="12" VerticalAlignment="Bottom">
+			<TextBlock FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}" Text="{Binding Path=CurrentLocationData.Address}"/>
+			<TextBlock FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}" Text="{Binding Path=CurrentLocationData, Converter={StaticResource LocationDataToCityStateZipConverter}}"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

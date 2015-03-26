@@ -1,0 +1,17 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Traffix.Converters"
+	xmlns:map="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps">
+
+    <converters:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+
+    <ControlTemplate x:Key="PushpinControlTemplate" TargetType="map:Pushpin">
+		<Image Source="{Binding Path=Icon, Converter={StaticResource UriToImageSourceConverter}}" Stretch="None"/>
+	</ControlTemplate>
+	
+	<DataTemplate x:Key="PushpinTemplate">
+        <map:Pushpin Location="{Binding Path=Location}" PositionOrigin="Center" Template="{StaticResource PushpinControlTemplate}"/>
+    </DataTemplate>
+		
+</ResourceDictionary>
