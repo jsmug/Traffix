@@ -13,8 +13,6 @@ namespace Traffix.Mapping.Services
 
         //you can get and api key here http://ipinfodb.com/register.php
         private const string IPInfoLookup = "http://api.ipinfodb.com/v3/ip-city/?key=APP-KEY-HERE";
-        private const int WiredIanaInterfaceType = 6;
-        private const int WirelessIanaInterfaceType = 71;
 
         #endregion
 
