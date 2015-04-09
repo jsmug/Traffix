@@ -6,12 +6,12 @@ namespace Traffix.Mapping
     public class IdentificationToken
     {
 
-        private Guid baseToken;
+        private Guid _token;
 
 
         public IdentificationToken()
         {
-            this.baseToken = Guid.NewGuid();
+            this._token = Guid.NewGuid();
         }
 
 
@@ -24,7 +24,7 @@ namespace Traffix.Mapping
 
             if (other != null)
             {
-                equals = Equals(this.baseToken, other.Token);
+                equals = Equals(this._token, other.Token);
             }
 
             return equals;
@@ -51,7 +51,7 @@ namespace Traffix.Mapping
 
         public override int GetHashCode()
         {
-            return this.baseToken.GetHashCode();
+            return this._token.GetHashCode();
         }
 
         #endregion
@@ -63,7 +63,7 @@ namespace Traffix.Mapping
 
             get
             {
-                return this.baseToken;
+                return this._token;
             }
 
         }

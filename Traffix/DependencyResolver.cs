@@ -7,8 +7,8 @@ namespace Traffix
     public static class DependencyResolver
     {
 
-        private static readonly object baseLock = new object();
-        private static readonly IDictionary<Type, object> baseRegisteredObjects = new Dictionary<Type, object>();
+        private static readonly object _lock = new object();
+        private static readonly IDictionary<Type, object> _registeredObjects = new Dictionary<Type, object>();
 
 
         public static event EventHandler<TypeRegisteredEventArgs> TypeRegistered;
@@ -19,10 +19,10 @@ namespace Traffix
         public static void Register(Type type, object instance)
         {
 
-            lock (baseLock)
+            lock (_lock)
             {
 
-                if (!baseRegisteredObjects.ContainsKey(type))
+                if (!_registeredObjects.ContainsKey(type))
                 {
 
                     if (instance != null && !type.IsAssignableFrom(instance.GetType()))
@@ -30,7 +30,7 @@ namespace Traffix
                         throw new InvalidOperationException(string.Format(Resources.InvalidTypeRegistration, type.ToString()));
                     }
 
-                    baseRegisteredObjects.Add(type, instance);
+                    _registeredObjects.Add(type, instance);
 
                     if (TypeRegistered != null)
                     {
@@ -46,15 +46,15 @@ namespace Traffix
         public static object Resolve(Type type)
         {
 
-            lock (baseLock)
+            lock (_lock)
             {
 
                 object instance = null;
 
-                if (baseRegisteredObjects.ContainsKey(type))
+                if (_registeredObjects.ContainsKey(type))
                 {
 
-                    instance = baseRegisteredObjects[type];
+                    instance = _registeredObjects[type];
 
                     if (instance == null)
                     {
@@ -74,7 +74,7 @@ namespace Traffix
 
             object instance = Resolve(typeof(T));
 
-            lock (baseLock)
+            lock (_lock)
             {
 
                 T resolved = default(T);
@@ -101,12 +101,12 @@ namespace Traffix
         public static void Remove(Type type)
         {
 
-            lock(baseLock)
+            lock(_lock)
             {
 
-                if (baseRegisteredObjects.ContainsKey(type))
+                if (_registeredObjects.ContainsKey(type))
                 {
-                    baseRegisteredObjects.Remove(type);
+                    _registeredObjects.Remove(type);
                 }
 
             }

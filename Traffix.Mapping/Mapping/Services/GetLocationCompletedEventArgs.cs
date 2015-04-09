@@ -6,7 +6,7 @@ namespace Traffix.Mapping.Services
     public class GetLocationCompletedEventArgs : EventArgs
     {
 
-        private LocationData baseLocationData;
+        private LocationData _locationData;
 
 
         private GetLocationCompletedEventArgs() : base()
@@ -21,7 +21,7 @@ namespace Traffix.Mapping.Services
                 throw new ArgumentNullException("locationData");
             }
 
-            this.baseLocationData = locationData;
+            this._locationData = locationData;
         }
 
 
@@ -32,7 +32,7 @@ namespace Traffix.Mapping.Services
 
             get
             {
-                return this.baseLocationData;
+                return this._locationData;
             }
 
         }

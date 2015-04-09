@@ -6,8 +6,8 @@ namespace Traffix
     public class TypeRegisteredEventArgs : EventArgs
     {
 
-        private object baseInstance;
-        private Type baseType;
+        private object _instance;
+        private Type _type;
 
 
         private TypeRegisteredEventArgs()
@@ -18,8 +18,8 @@ namespace Traffix
         public TypeRegisteredEventArgs(Type type, object instance)
         {
 
-            this.baseInstance = instance;
-            this.baseType = type;
+            this._instance = instance;
+            this._type = type;
 
         }
 
@@ -31,7 +31,7 @@ namespace Traffix
 
             get
             {
-                return this.baseInstance;
+                return this._instance;
             }
 
         }
@@ -41,7 +41,7 @@ namespace Traffix
 
             get
             {
-                return this.baseType;
+                return this._type;
             }
 
         #endregion
