@@ -27,12 +27,12 @@ namespace Traffix.Mapping
 
             if (string.IsNullOrEmpty(city))
             {
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException("city");
             }
 
             if (string.IsNullOrEmpty(state))
             {
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException("state");
             }
 
             if (string.IsNullOrEmpty(zip))
