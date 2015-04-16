@@ -54,12 +54,12 @@ namespace Traffix.Mapping.TileSources
 
         #region private
 
-        private string MapModeToUri(GoogleMapMode yahooMapMode)
+        private string MapModeToUri(GoogleMapMode googleMapMode)
         {
 
             string uri = default(string);
 
-            switch (yahooMapMode)
+            switch (googleMapMode)
             {
 
                 case GoogleMapMode.Hybrid:
